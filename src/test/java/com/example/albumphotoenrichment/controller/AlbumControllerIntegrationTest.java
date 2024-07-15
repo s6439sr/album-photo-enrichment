@@ -15,21 +15,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 public class AlbumControllerIntegrationTest {
 
+	// Inyecta MockMvc para realizar solicitudes HTTP simuladas
 	@Autowired
 	private MockMvc mockMvc;
 
+	// Prueba de integración para el endpoint GET /albums
 	@Test
 	void testGetAlbums() throws Exception {
-		mockMvc.perform(get("/albums")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
+		// Realiza una solicitud GET a /albums y verifica el resultado
+		mockMvc.perform(get("/albums")).andExpect(status().isOk()) // Verifica que el estado de la respuesta sea 200 OK
+				.andExpect(jsonPath("$").isArray()); // Verifica que la respuesta sea un array JSON
 	}
 
+	// Prueba de integración para el endpoint PUT /albums/refresh
 	@Test
 	void testRefreshAlbums() throws Exception {
-		mockMvc.perform(put("/albums/refresh")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
+		// Realiza una solicitud PUT a /albums/refresh y verifica el resultado
+		mockMvc.perform(put("/albums/refresh")).andExpect(status().isOk()) // Verifica que el estado de la respuesta sea
+																			// 200 OK
+				.andExpect(jsonPath("$").isArray()); // Verifica que la respuesta sea un array JSON
 	}
 
+	// Prueba de integración para el endpoint PUT /albums/refresh-and-save
 	@Test
 	void testRefreshAndSaveAlbums() throws Exception {
-		mockMvc.perform(put("/albums/refresh-and-save")).andExpect(status().isOk()).andExpect(jsonPath("$").isArray());
+		// Realiza una solicitud PUT a /albums/refresh-and-save y verifica el resultado
+		mockMvc.perform(put("/albums/refresh-and-save")).andExpect(status().isOk()) // Verifica que el estado de la
+																					// respuesta sea 200 OK
+				.andExpect(jsonPath("$").isArray()); // Verifica que la respuesta sea un array JSON
 	}
 }
