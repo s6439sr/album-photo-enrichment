@@ -1,0 +1,5 @@
+com\example\albumphotoenrichment\service\AlbumServiceTest.class
+com\example\albumphotoenrichment\AlbumPhotoEnrichmentApplicationTests.class
+com\example\albumphotoenrichment\controller\AlbumControllerIntegrationTest.class
+com\example\albumphotoenrichment\controller\AlbumControllerTest.class
+com\example\albumphotoenrichment\service\AlbumServiceIntegrationTest.class
