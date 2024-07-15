@@ -104,7 +104,6 @@ public class AlbumService {
 			throw new RuntimeException(AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS, e);
 		} catch (Exception ex) {
 			throw new RuntimeException(AlbumPhotoConstants.ERROR_GENERIC, ex);
-
 		}
 	}
 
