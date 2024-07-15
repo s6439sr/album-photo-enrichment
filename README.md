@@ -53,6 +53,7 @@ NOTA: Implementar una cache que lo revise cada x tiempo, revisar si en caso de q
 - El método evictCache utiliza @CacheEvict para limpiar la caché cuando es necesario, asegurando que los datos más recientes sean recuperados cuando se solicitan explícitamente.
 
 - RestTemplate para llamadas HTTP eficientes.
+- Uso de factories para encapsular la creación de objetos complejos y permitir configuraciones consistentes.
 - Arrays y listas para manejar las estructuras de datos.
 - Diseño siguiendo principios SOLID para facilitar el mantenimiento y la escalabilidad.
 - Uso de CompletableFuture para Asincronía en la clase AlbumService: fetchAlbumsAsync() y fetchPhotosAsync(): Estos métodos recuperan los datos de álbumes y fotos de manera asíncrona usando CompletableFuture, lo que permite que las llamadas se realicen en paralelo en lugar de secuencialmente, mejorando el rendimiento.
