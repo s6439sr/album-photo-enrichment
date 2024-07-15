@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class AlbumControllerIntegrationTest {
+class AlbumControllerIntegrationTest {
 
 	// Inyecta MockMvc para realizar solicitudes HTTP simuladas
 	@Autowired

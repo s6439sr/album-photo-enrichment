@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.albumphotoenrichment.service.AlbumService;
 
 @WebMvcTest(AlbumController.class)
-public class AlbumControllerTest {
+class AlbumControllerTest {
 
 	// Mock para el servicio AlbumService
 	@Mock

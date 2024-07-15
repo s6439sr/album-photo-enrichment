@@ -3,7 +3,7 @@ package com.example.albumphotoenrichment.constant;
 public final class AlbumPhotoConstants {
 
 	// Instanciacion preventiva
-	public AlbumPhotoConstants() {
+	private AlbumPhotoConstants() {
 		throw new UnsupportedOperationException("This is a constants class and cannot be instantiated");
 	}
 
@@ -29,5 +29,6 @@ public final class AlbumPhotoConstants {
 	public static final String ERROR_FETCH_ALBUMS = "Failed to fetch albums";
 	public static final String ERROR_FETCH_PHOTOS = "Failed to fetch photos";
 	public static final String ERROR_PROCESS_ALBUMS_PHOTOS = "Failed to fetch or process albums and photos";
+	public static final String ERROR_GENERIC = "Failed generic to fetch or process";
 
 }

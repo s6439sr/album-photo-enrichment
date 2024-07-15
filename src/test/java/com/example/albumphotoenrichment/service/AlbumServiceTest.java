@@ -21,7 +21,7 @@ import com.example.albumphotoenrichment.model.Album;
 import com.example.albumphotoenrichment.model.Photo;
 import com.example.albumphotoenrichment.repository.AlbumRepository;
 
-public class AlbumServiceTest {
+class AlbumServiceTest {
 
 	@Mock
 	private RestTemplateFactory restTemplateFactory;

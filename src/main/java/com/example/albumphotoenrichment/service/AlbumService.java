@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
@@ -86,11 +87,12 @@ public class AlbumService {
 
 	private List<Album> enrichAlbums(CompletableFuture<List<Album>> albumsFuture,
 			CompletableFuture<List<Photo>> photosFuture) {
-		try {
-			CompletableFuture<Void> allOf = CompletableFuture.allOf(albumsFuture, photosFuture);
-			allOf.join(); // Espera a que ambas tareas se completen
+		CompletableFuture<Void> allOf = CompletableFuture.allOf(albumsFuture, photosFuture);
+		allOf.join(); // Espera a que ambas tareas se completen
 
-			List<Album> albums = albumsFuture.get();
+		List<Album> albums;
+		try {
+			albums = albumsFuture.get();
 			List<Photo> photos = photosFuture.get();
 
 			Map<Long, List<Photo>> photosByAlbum = photos.parallelStream()
@@ -98,8 +100,11 @@ public class AlbumService {
 
 			albums.parallelStream().forEach(album -> album.setPhotos(photosByAlbum.get(album.getId())));
 			return albums;
-		} catch (Exception e) {
+		} catch (InterruptedException | ExecutionException e) {
 			throw new RuntimeException(AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS, e);
+		} catch (Exception ex) {
+			throw new RuntimeException(AlbumPhotoConstants.ERROR_GENERIC, ex);
+
 		}
 	}
 

@@ -15,7 +15,7 @@ import com.example.albumphotoenrichment.model.Album;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AlbumServiceIntegrationTest {
+class AlbumServiceIntegrationTest {
 
 	// Inyecta la instancia de AlbumService
 	@Autowired
