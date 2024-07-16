@@ -81,7 +81,7 @@ Inicialmente uso solo @Cacheable, posteriormente añado la funcionalidad @CacheE
 Justificación:
 Fase de pruebas, no estoy segura de que sea eficiente. Queria implementar un mecanismo para que si los datos cambian que la cache cambie para impedir posibles fallos.
 
-**Motivación**: Al almacenar en caché los resultados de las llamadas a la API externa, reducimos la cantidad de llamadas HTTP necesarias, lo que disminuye significativamente el tiempo de respuesta y el uso de ancho de banda. Esto es especialmente útil si los datos de la API externa no cambian frecuentemente.
+**Motivación**: Al almacenar en caché los resultados de las llamadas a la API externa, reducimos la cantidad de llamadas HTTP necesarias, lo que disminuye significativamente el tiempo de respuesta. Esto es especialmente útil si los datos de la API externa no cambian frecuentemente.
 
 ### 4. RestTemplate para llamadas HTTP eficientes.
 ### 5. Uso de factories para encapsular la creación de objetos complejos y permitir configuraciones consistentes.
