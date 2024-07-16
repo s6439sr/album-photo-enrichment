@@ -57,7 +57,7 @@ public class AlbumController {
 	 * 
 	 * @return Lista de álbumes enriquecidos.
 	 */
-	@PutMapping("/refresh")
+	@GetMapping("/refresh")
 	public List<Album> refreshAlbums() {
 		Long iniTime = System.nanoTime();
 		List<Album> albums = albumService.refreshAlbums();

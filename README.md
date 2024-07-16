@@ -1,7 +1,7 @@
 # Album Photo Enrichment Service
 
 ## Descripción
-El proyecto Album Photo Enrichment es una aplicación diseñada para enriquecer y gestionar álbumes de fotos mediante la integración con una URL proveedora de datos. La aplicación se basa en Spring Boot y utiliza Hibernate para la persistencia de datos, así como mecanismos de caching para mejorar la eficiencia en el acceso a los datos.
+El proyecto Album Photo Enrichment es una aplicación diseñada para enriquecer y gestionar álbumes de fotos mediante la integración con una URL proveedora de datos. La aplicación se basa en Spring Boot y utiliza mecanismos de caching para mejorar la eficiencia en el acceso a los datos.
 Este proyecto es un servicio de backend construido usando Spring Boot que se encarga de manejar álbumes y fotos obtenidos desde una API externa. Proporciona endpoints para recuperar, enriquecer y almacenar estos datos en una base de datos en memoria H2, utilizando diversas técnicas y patrones de diseño para asegurar eficiencia en tiempo y memoria.
 
 ## Diseño Centrado en la Eficiencia
@@ -10,7 +10,7 @@ El diseño y desarrollo de esta aplicación se centraron en la eficiencia debido
 - Rendimiento:
 
 El uso de caché mejora el tiempo de respuesta de la aplicación al reducir la necesidad de consultas repetitivas a la base de datos.
-La actualización selectiva de la caché con @CachePut minimiza el impacto en el rendimiento, asegurando que solo se actualicen los datos necesarios.
+
 Escalabilidad:
 
 La configuración de un pool de hilos a través de ExecutorService permite manejar múltiples tareas concurrentes de manera eficiente, mejorando la capacidad de la aplicación para escalar y manejar más solicitudes simultáneamente.
@@ -42,8 +42,8 @@ El proyecto sigue una arquitectura de microservicio con una separación clara en
 
 Entorno local: http://localhost:8080/
 
-- GET `albums`: Obtiene y devuelve los álbumes enriquecidos con sus fotos.
-- PUT `albums/refresh`: Refresca los datos en caché y devuelve los álbumes actualizados sin guardarlos en la base de datos.
+- GET `albums`: Obtiene, guarda en cache y devuelve los álbumes enriquecidos con sus fotos.
+- GET `albums/refresh`: Refresca los datos en caché y devuelve los álbumes actualizados sin guardarlos en la base de datos.
 - PUT `albums/refresh-and-save`: Refresca los datos en caché y guarda los álbumes actualizados en la base de datos h2.
 
 ## Patrones de Diseño Implementados
