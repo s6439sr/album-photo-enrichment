@@ -84,15 +84,114 @@ Fase de pruebas, no estoy segura de que sea eficiente. Queria implementar un mec
 **Motivación**: Al almacenar en caché los resultados de las llamadas a la API externa, reducimos la cantidad de llamadas HTTP necesarias, lo que disminuye significativamente el tiempo de respuesta. Esto es especialmente útil si los datos de la API externa no cambian frecuentemente.
 
 ### 4. RestTemplate para llamadas HTTP eficientes.
+Se usa RestTemplate para realizar operaciones HTTP de manera sencilla y eficiente.
+
 ### 5. Uso de factories para encapsular la creación de objetos complejos y permitir configuraciones consistentes.
+El patrón de diseño Factory es utilizado para crear objetos sin tener que especificar la clase exacta del objeto que se va a crear. 
+Esto es particularmente útil en escenarios donde la creación de objetos es compleja o necesita ser centralizada por varias razones como la reutilización, la consistencia y el control sobre la instancia.
+
+El patrón Factory nos permite:
+-Encapsulamiento de la Creación de Objetos:
+Centraliza la creación de objetos en un único lugar, lo que facilita el mantenimiento y la gestión del código.
+-Reutilización de Código:
+Evita la duplicación de código de creación de objetos en diferentes partes de la aplicación, promoviendo la reutilización y reduciendo el riesgo de errores.
+-Control sobre la Instanciación:
+Permite controlar y gestionar cómo y cuándo se crean las instancias.
+
+Utilizo el patrón Factory para la creación de instancias de RestTemplate y ExecutorService.
+
+RestTemplateFactory
+Esta fábrica proporciona una instancia singleton de RestTemplate, asegurando que todas las partes de la aplicación usen la misma instancia, lo cual puede ser beneficioso para el manejo de recursos y la configuración centralizada.
+
+ExecutorServiceFactory
+Esta fábrica proporciona una instancia singleton de ExecutorService con un pool de hilos fijo. Esto es útil para gestionar la concurrencia de manera eficiente, evitando la creación innecesaria de múltiples pools de hilos y asegurando que la aplicación pueda manejar la ejecución concurrente de tareas de manera controlada.
+
 ### 6. Arrays y listas para manejar las estructuras de datos.
+
+**Arrays**
+- Acceso Directo
+
+Los arrays permiten el acceso directo a sus elementos a través de índices, lo que significa que se puede acceder a cualquier elemento en tiempo constante 
+Esto es muy eficiente cuando se necesita acceder frecuentemente a elementos específicos.
+Eficiencia de Memoria:
+
+Los arrays son estructuras de datos contiguas en memoria. Esto significa que ocupan menos espacio en comparación con algunas estructuras de datos más complejas como las listas enlazadas.
+- Uso en APIs Externas
+
+Muchas APIs y bibliotecas, incluyendo la mayoría de las operaciones de red y serialización/deserialización, utilizan arrays. Por ejemplo, al deserializar JSON a objetos en Java, es común utilizar arrays como estructuras de datos intermedias.
+- Inmutabilidad
+
+Si se necesita una colección de tamaño fijo que no va a cambiar, un array es una opción excelente. Esto ayuda a prevenir errores relacionados con la modificación accidental de la colección.
+
+
+**Listas**
+- Flexibilidad:
+
+Las listas en Java, ( ArrayList o LinkedList ), son dinámicas y pueden crecer o disminuir en tamaño según sea necesario. Esto es muy útil cuando el número de elementos no se conoce de antemano o puede cambiar durante la ejecución del programa.
+- Operaciones de Alto Nivel:
+
+Las listas en Java proporcionan una rica API que incluye métodos para añadir, eliminar, y manipular elementos, además de otras operaciones como ordenación y búsqueda, lo que facilita el manejo de colecciones de datos.
+- Compatibilidad con Streams y Operaciones Paralelas:
+
+Las listas en Java son compatibles con las operaciones de streams y pueden ser fácilmente procesadas de manera paralela, lo cual es muy útil para manejar grandes cantidades de datos de manera eficiente. Esto es especialmente relevante en el proyecto albumphotoenrichment donde se utiliza la programación paralela para procesar álbumes y fotos.
+
 ### 7. Diseño siguiendo principios SOLID para facilitar el mantenimiento y la escalabilidad.
-### 8. Uso de CompletableFuture para Asincronía en la clase AlbumService: fetchAlbumsAsync() y fetchPhotosAsync(): Estos métodos recuperan los datos de álbumes y fotos de manera asíncrona usando CompletableFuture, lo que permite que las llamadas se realicen en paralelo en lugar de secuencialmente, mejorando el rendimiento.
+
+Aplicar los principios SOLID en el diseño de software es fundamental para crear sistemas que sean mantenibles, escalables y robustos.
+
+** 1. Single Responsibility Principle**
+- Separación de Responsabilidades en el Servicio:
+La clase AlbumService se encarga únicamente de la lógica de negocio relacionada con los álbumes y las fotos, mientras que la clase AlbumController se encarga de la lógica de presentación (manejar las solicitudes HTTP).
+- Clases Factory:
+Las clases RestTemplateFactory y ExecutorServiceFactory están dedicadas a la creación de instancias de RestTemplate y ExecutorService respectivamente.
+
+
+**2. Open/Closed Principle**
+Las clases deben estar abiertas para la extensión, pero cerradas para la modificación.
+
+Aplicación en el Proyecto:
+- Uso de Interfaces y Herencia:
+Si en el futuro se necesitan diferentes implementaciones de AlbumService, se puede crear una interfaz AlbumService e implementar diferentes variantes sin modificar la implementación existente.
+- Configuración y Factores Externos:
+Utilización de configuraciones externas y constantes (AlbumPhotoConstants) para permitir cambios sin modificar el código base.
+
+**3. Liskov Substitution Principle**
+Las clases derivadas deben poder ser sustituidas por sus clases base sin alterar el comportamiento del programa.
+
+Aplicación en el Proyecto:
+- Interfaz de Repositorio:
+El uso de AlbumRepository, que extiende JpaRepository, asegura que cualquier implementación de AlbumRepository puede ser utilizada sin romper la funcionalidad.
+
+**4. Interface Segregation Principle**
+Los clientes no deben verse obligados a depender de interfaces que no utilizan.
+
+Aplicación en el Proyecto:
+- Interfaces Específicas:
+Definir interfaces específicas para diferentes servicios o componentes si es necesario.
+
+**5. Dependency Inversion Principle**
+Las clases de alto nivel no deben depender de clases de bajo nivel. Ambas deben depender de abstracciones.
+
+Aplicación en el Proyecto:
+- Inyección de Dependencias:
+Uso de Spring para la inyección de dependencias, permitiendo que las clases dependan de interfaces o abstracciones en lugar de implementaciones concretas.
+
+- Factory:
+Las clases de Factoty (RestTemplateFactory, ExecutorServiceFactory) abstraen la creación de objetos, permitiendo cambiar la implementación sin afectar a las clases dependientes.
+
+### 8. Uso de CompletableFuture para Asincronía en la clase AlbumService
+
+fetchAlbumsAsync() y fetchPhotosAsync(): Estos métodos recuperan los datos de álbumes y fotos de manera asíncrona usando CompletableFuture, lo que permite que las llamadas se realicen en paralelo en lugar de secuencialmente, mejorando el rendimiento.
 ### 9. Procesamiento en Paralelo:
+
 CompletableFuture.allOf: Espera a que ambos CompletableFuture (álbumes y fotos) se completen antes de proceder, asegurando que los datos están listos para ser procesados en paralelo.
 parallelStream: Utiliza parallelStream tanto para agrupar las fotos por álbum (groupingByConcurrent) como para asignar las fotos a cada álbum (forEach). Esto permite que las operaciones se ejecuten en paralelo, aprovechando múltiples núcleos de CPU.
-### 10. Inicialización de ExecutorService: Un ExecutorService personalizado, creado a través de ExecutorServiceFactory, se utiliza para manejar las tareas asíncronas. Esto permite un control más fino sobre el manejo de hilos y mejora la capacidad de ajuste del rendimiento.
-### 11. Logs de Tiempo de Ejecución: Los métodos enrichAlbumsAndSave y enrichAlbums miden y registran el tiempo de ejecución usando System.nanoTime(), lo que ayuda a identificar cuellos de botella y evaluar el rendimiento.
+### 10. Inicialización de ExecutorService
+
+Un ExecutorService personalizado, creado a través de ExecutorServiceFactory, se utiliza para manejar las tareas asíncronas. Esto permite un control más fino sobre el manejo de hilos y mejora la capacidad de ajuste del rendimiento.
+### 11. Logs de Tiempo de Ejecución
+
+Los métodos enrichAlbumsAndSave y enrichAlbums miden y registran el tiempo de ejecución usando System.nanoTime(), lo que ayuda a identificar cuellos de botella y evaluar el rendimiento.
 
 ### 
 
