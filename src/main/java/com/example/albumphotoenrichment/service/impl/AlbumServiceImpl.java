@@ -46,8 +46,14 @@ public class AlbumServiceImpl implements AlbumService {
 	@Cacheable(AlbumPhotoConstants.CACHE_ALBUMS)
 	public CompletableFuture<List<Album>> fetchAlbumsAsync() {
 		return CompletableFuture.supplyAsync(() -> {
-			Album[] albumArray = restTemplate.getForObject(AlbumPhotoConstants.ALBUMS_URL, Album[].class);
-			return Arrays.asList(albumArray);
+			try {
+				Album[] albumArray = restTemplate.getForObject(AlbumPhotoConstants.ALBUMS_URL, Album[].class);
+				return Arrays.asList(albumArray);
+			} catch (Exception e) {
+				String errorMessage = AlbumPhotoConstants.ERROR_FETCH_ALBUMS;
+				LOGGER.error(errorMessage, e);
+				throw new AlbumServiceException(errorMessage, e);
+			}
 		}, executorService);
 	}
 
@@ -55,8 +61,14 @@ public class AlbumServiceImpl implements AlbumService {
 	@Cacheable(AlbumPhotoConstants.CACHE_PHOTOS)
 	public CompletableFuture<List<Photo>> fetchPhotosAsync() {
 		return CompletableFuture.supplyAsync(() -> {
-			Photo[] photoArray = restTemplate.getForObject(AlbumPhotoConstants.PHOTOS_URL, Photo[].class);
-			return Arrays.asList(photoArray);
+			try {
+				Photo[] photoArray = restTemplate.getForObject(AlbumPhotoConstants.PHOTOS_URL, Photo[].class);
+				return Arrays.asList(photoArray);
+			} catch (Exception e) {
+				String errorMessage = AlbumPhotoConstants.ERROR_FETCH_PHOTOS;
+				LOGGER.error(errorMessage, e);
+				throw new AlbumServiceException(errorMessage, e);
+			}
 		}, executorService);
 	}
 
@@ -96,12 +108,11 @@ public class AlbumServiceImpl implements AlbumService {
 
 	private List<Album> enrichAlbums(CompletableFuture<List<Album>> albumsFuture,
 			CompletableFuture<List<Photo>> photosFuture) {
-		CompletableFuture<Void> allOf = CompletableFuture.allOf(albumsFuture, photosFuture);
-		allOf.join(); // Espera a que ambas tareas se completen
-
-		List<Album> albums;
 		try {
-			albums = albumsFuture.get();
+			CompletableFuture<Void> allOf = CompletableFuture.allOf(albumsFuture, photosFuture);
+			allOf.join(); // Espera a que ambas tareas se completen
+
+			List<Album> albums = albumsFuture.get();
 			List<Photo> photos = photosFuture.get();
 
 			Map<Long, List<Photo>> photosByAlbum = photos.parallelStream()
@@ -110,13 +121,19 @@ public class AlbumServiceImpl implements AlbumService {
 			albums.parallelStream().forEach(album -> album.setPhotos(photosByAlbum.get(album.getId())));
 			return albums;
 		} catch (InterruptedException | ExecutionException e) {
-			throw new AlbumServiceException(AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS, e);
-		} catch (Exception ex) {
-			throw new AlbumServiceException(AlbumPhotoConstants.ERROR_GENERIC, ex);
+			String errorMessage = AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS;
+			LOGGER.error(errorMessage, e);
+			throw new AlbumServiceException(errorMessage, e);
 		}
 	}
 
 	private List<Album> saveAlbums(List<Album> albums) {
-		return albumRepository.saveAll(albums);
+		try {
+			return albumRepository.saveAll(albums);
+		} catch (Exception e) {
+			String errorMessage = AlbumPhotoConstants.ERROR_GENERIC;
+			LOGGER.error(errorMessage, e);
+			throw new AlbumServiceException(errorMessage, e);
+		}
 	}
 }
