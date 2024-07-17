@@ -4,6 +4,20 @@
 El proyecto Album Photo Enrichment es una aplicación diseñada para enriquecer y gestionar álbumes de fotos mediante la integración con una URL proveedora de datos. La aplicación se basa en Spring Boot y utiliza mecanismos de caching para mejorar la eficiencia en el acceso a los datos.
 Este proyecto es un servicio de backend construido usando Spring Boot que se encarga de manejar álbumes y fotos obtenidos desde una API externa. Proporciona endpoints para recuperar, enriquecer y almacenar estos datos en una base de datos en memoria H2, utilizando diversas técnicas y patrones de diseño para asegurar eficiencia en tiempo y memoria.
 
+## Arquitectura
+
+### Justificación de la Arquitectura
+
+La arquitectura del proyecto sigue una estructura de capas bien definida para separar las responsabilidades y facilitar el mantenimiento y la escalabilidad:
+
+1. **Controlador (Controller)**: Maneja las solicitudes HTTP y delega la lógica de negocio al servicio correspondiente.
+2. **Servicio (Service)**: Contiene la lógica de negocio principal, incluyendo el enriquecimiento de álbumes con fotos.
+3. **Repositorio (Repository)**: Maneja las operaciones de persistencia de datos.
+4. **Modelo (Model)**: Define las entidades de dominio.
+5. **Fábrica (Factory)**: Proporciona instancias configuradas de componentes necesarios, como `RestTemplate` y `ExecutorService`.
+
+Esta arquitectura asegura que cada capa tiene una única responsabilidad, permitiendo cambios y expansiones de forma aislada, en línea con el principio de responsabilidad única (SRP) del SOLID. Además, al usar fábricas para instanciar componentes, facilitamos la configuración y el mantenimiento del código.
+
 ## Diseño Centrado en la Eficiencia
 El diseño y desarrollo de esta aplicación se centraron en la eficiencia debido a varias razones clave:
 
@@ -31,12 +45,6 @@ La separación clara de responsabilidades entre diferentes componentes (servicio
 - **Mockito**: Framework de simulación para pruebas unitarias en Java, que permite crear mocks de dependencias.
 - **Sonarlint**: Limpieza de código
 
-## Arquitectura
-El proyecto sigue una arquitectura de microservicio con una separación clara en capas:
-- **Controller**: Maneja las solicitudes HTTP y devuelve respuestas.
-- **Service**: Contiene la lógica de negocio y realiza llamadas a APIs externas.
-- **Repository**: Interactúa con la base de datos.
-- **Config**: Configuración de caché y otras configuraciones de Spring.
 
 ## Endpoints
 
@@ -213,4 +221,10 @@ mvn spring-boot:run
 - URL consola h2
 
 http://localhost:8080/h2-console
+
+# Ejecutar pruebas unitarias e integración
+mvn test
+
+# Generar informe de cobertura
+mvn jacoco:report
 
