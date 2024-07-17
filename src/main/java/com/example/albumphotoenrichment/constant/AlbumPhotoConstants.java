@@ -25,10 +25,12 @@ public final class AlbumPhotoConstants {
 	public static final String PHOTOS = "photos";
 	public static final int MINIMUM_ARRAY_SIZE = 0;
 
-	// Mensajes de error
-	public static final String ERROR_FETCH_ALBUMS = "Failed to fetch albums";
-	public static final String ERROR_FETCH_PHOTOS = "Failed to fetch photos";
-	public static final String ERROR_PROCESS_ALBUMS_PHOTOS = "Failed to fetch or process albums and photos";
-	public static final String ERROR_GENERIC = "Failed generic to fetch or process";
+	// Mensajes de error generales
+	public static final String ERROR_GENERIC = "Se ha producido un error en la aplicación.";
+
+	// Mensajes de error específicos para el servicio de álbumes
+	public static final String ERROR_FETCH_ALBUMS = "Error al recuperar los álbumes desde el servicio externo.";
+	public static final String ERROR_FETCH_PHOTOS = "Error al recuperar las fotos desde el servicio externo.";
+	public static final String ERROR_PROCESS_ALBUMS_PHOTOS = "Error al procesar los álbumes y las fotos.";
 
 }

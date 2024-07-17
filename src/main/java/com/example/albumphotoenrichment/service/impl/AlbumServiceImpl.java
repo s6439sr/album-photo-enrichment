@@ -1,21 +1,23 @@
 package com.example.albumphotoenrichment.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
-import java.util.Map;
-import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.example.albumphotoenrichment.constant.AlbumPhotoConstants;
+import com.example.albumphotoenrichment.exception.AlbumServiceException;
 import com.example.albumphotoenrichment.factory.ExecutorServiceFactory;
 import com.example.albumphotoenrichment.factory.RestTemplateFactory;
 import com.example.albumphotoenrichment.model.Album;
@@ -108,9 +110,9 @@ public class AlbumServiceImpl implements AlbumService {
 			albums.parallelStream().forEach(album -> album.setPhotos(photosByAlbum.get(album.getId())));
 			return albums;
 		} catch (InterruptedException | ExecutionException e) {
-			throw new RuntimeException(AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS, e);
+			throw new AlbumServiceException(AlbumPhotoConstants.ERROR_PROCESS_ALBUMS_PHOTOS, e);
 		} catch (Exception ex) {
-			throw new RuntimeException(AlbumPhotoConstants.ERROR_GENERIC, ex);
+			throw new AlbumServiceException(AlbumPhotoConstants.ERROR_GENERIC, ex);
 		}
 	}
 
