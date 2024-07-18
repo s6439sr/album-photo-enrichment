@@ -31,7 +31,7 @@ class AlbumServiceImplTest {
 	@Mock
 	private AlbumRepository albumRepository;
 
-	@InjectMocks
+	@Mock
 	private AlbumService albumService;
 
 	@BeforeEach
