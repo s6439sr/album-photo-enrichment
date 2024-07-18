@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Collections;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -25,11 +24,6 @@ class AlbumControllerTest {
 
 	@MockBean
 	private AlbumService albumService;
-
-	@BeforeEach
-	void setUp() {
-		// No necesitas inicializar los mocks manualmente, Spring se encarga de esto
-	}
 
 	@Test
 	void testGetAlbums() throws Exception {
