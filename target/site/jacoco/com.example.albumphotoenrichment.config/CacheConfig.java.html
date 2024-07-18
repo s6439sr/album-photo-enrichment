@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">album-photo-enrichment</a> &gt; <a href="index.source.html" class="el_package">com.example.albumphotoenrichment.config</a> &gt; <span class="el_source">CacheConfig.java</span></div><h1>CacheConfig.java</h1><pre class="source lang-java linenums">package com.example.albumphotoenrichment.config;
+
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.example.albumphotoenrichment.constant.AlbumPhotoConstants;
+
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
+
+/**
+ * Configuracion de cache para la aplicacion. Habilita la cache en la aplicacion
+ * y define el gestor de cache.
+ */
+@Configuration
+@EnableCaching
+<span class="fc" id="L17">public class CacheConfig {</span>
+	/**
+	 * Define un gestor de cache que utiliza un ConcurrentMap para almacenar datos
+	 * en cache.
+	 * 
+	 * @return ConcurrentMapCacheManager gestor de cache
+	 */
+	@Bean
+	public ConcurrentMapCacheManager cacheManager() {
+<span class="fc" id="L26">		return new ConcurrentMapCacheManager(AlbumPhotoConstants.CACHE_ALBUMS, AlbumPhotoConstants.CACHE_PHOTOS,</span>
+				AlbumPhotoConstants.CACHE_ALBUMS_NO_DB);
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
