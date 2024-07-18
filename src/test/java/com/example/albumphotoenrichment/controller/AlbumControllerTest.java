@@ -10,40 +10,27 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.albumphotoenrichment.service.AlbumService;
 
 @WebMvcTest(AlbumController.class)
 class AlbumControllerTest {
 
-	// Mock para el servicio AlbumService
-	@Mock
-	private AlbumService albumService;
-
-	// Inyecta el controlador con los mocks
-	@InjectMocks
-	private AlbumController albumController;
-
-	// Objeto MockMvc para realizar solicitudes HTTP simuladas
+	@Autowired
 	private MockMvc mockMvc;
 
-	// Configura los mocks y MockMvc antes de cada prueba
+	@MockBean
+	private AlbumService albumService;
+
 	@BeforeEach
 	void setUp() {
-		// Inicializa los mocks
-		MockitoAnnotations.openMocks(this);
-
-		// Configura MockMvc con el controlador inyectado
-		mockMvc = MockMvcBuilders.standaloneSetup(albumController).build();
+		// No necesitas inicializar los mocks manualmente, Spring se encarga de esto
 	}
 
-	// Prueba para el endpoint GET /albums
 	@Test
 	void testGetAlbums() throws Exception {
 		// Configura el mock del servicio para devolver una lista vacía
@@ -55,7 +42,6 @@ class AlbumControllerTest {
 				.andExpect(jsonPath("$").isEmpty()); // Verifica que el array JSON esté vacío
 	}
 
-	// Prueba para el endpoint PUT /albums/refresh
 	@Test
 	void testRefreshAlbums() throws Exception {
 		// Configura el mock del servicio para devolver una lista vacía
@@ -68,7 +54,6 @@ class AlbumControllerTest {
 				.andExpect(jsonPath("$").isEmpty()); // Verifica que el array JSON esté vacío
 	}
 
-	// Prueba para el endpoint PUT /albums/refresh-and-save
 	@Test
 	void testRefreshAndSaveAlbums() throws Exception {
 		// Configura el mock del servicio para devolver una lista vacía
