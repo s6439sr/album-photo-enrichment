@@ -48,7 +48,7 @@ class AlbumControllerTest {
 		when(albumService.refreshAlbums()).thenReturn(Collections.emptyList());
 
 		// Realiza una solicitud PUT a /albums/refresh y verifica el resultado
-		mockMvc.perform(put("/albums/refresh")).andExpect(status().isOk()) // Verifica que el estado de la respuesta sea
+		mockMvc.perform(get("/albums/refresh")).andExpect(status().isOk()) // Verifica que el estado de la respuesta sea
 																			// 200 OK
 				.andExpect(jsonPath("$").isArray()) // Verifica que la respuesta sea un array JSON
 				.andExpect(jsonPath("$").isEmpty()); // Verifica que el array JSON esté vacío
