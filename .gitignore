@@ -33,3 +33,7 @@ target/classes/META-INF/maven/com.example/album-photo-enrichment/pom.properties
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 target/classes/META-INF/maven/com.example/album-photo-enrichment/pom.properties
+*.properties
+*.original
+*.properties
+*.lst

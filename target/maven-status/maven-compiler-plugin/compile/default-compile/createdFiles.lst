@@ -1,11 +1,13 @@
+com\example\albumphotoenrichment\factory\RestTemplateFactory.class
+com\example\albumphotoenrichment\service\AlbumService.class
+com\example\albumphotoenrichment\exception\AlbumServiceException.class
+com\example\albumphotoenrichment\model\Album.class
 com\example\albumphotoenrichment\service\impl\AlbumServiceImpl.class
 com\example\albumphotoenrichment\config\CacheConfig.class
 com\example\albumphotoenrichment\constant\AlbumPhotoConstants.class
-com\example\albumphotoenrichment\factory\RestTemplateFactory.class
+com\example\albumphotoenrichment\exception\GlobalExceptionHandler.class
 com\example\albumphotoenrichment\model\Photo.class
 com\example\albumphotoenrichment\factory\ExecutorServiceFactory.class
 com\example\albumphotoenrichment\repository\AlbumRepository.class
 com\example\albumphotoenrichment\AlbumPhotoEnrichmentApplication.class
-com\example\albumphotoenrichment\service\AlbumService.class
 com\example\albumphotoenrichment\controller\AlbumController.class
-com\example\albumphotoenrichment\model\Album.class

@@ -2,6 +2,8 @@ C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\exampl
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\config\CacheConfig.java
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\constant\AlbumPhotoConstants.java
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\controller\AlbumController.java
+C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\exception\AlbumServiceException.java
+C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\exception\GlobalExceptionHandler.java
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\factory\ExecutorServiceFactory.java
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\factory\RestTemplateFactory.java
 C:\Users\sarar\eclipse-workspace\album-photo-enrichment\src\main\java\com\example\albumphotoenrichment\model\Album.java
