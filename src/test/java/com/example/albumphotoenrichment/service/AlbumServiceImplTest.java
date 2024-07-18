@@ -22,7 +22,6 @@ import com.example.albumphotoenrichment.constant.AlbumPhotoConstants;
 import com.example.albumphotoenrichment.model.Album;
 import com.example.albumphotoenrichment.model.Photo;
 import com.example.albumphotoenrichment.repository.AlbumRepository;
-import com.example.albumphotoenrichment.service.impl.AlbumServiceImpl;
 
 class AlbumServiceImplTest {
 
@@ -33,7 +32,7 @@ class AlbumServiceImplTest {
 	private AlbumRepository albumRepository;
 
 	@InjectMocks
-	private AlbumServiceImpl albumService;
+	private AlbumService albumService;
 
 	@BeforeEach
 	void setUp() {
