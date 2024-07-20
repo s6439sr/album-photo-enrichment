@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,7 @@ class AlbumServiceImplTest {
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
+		executorService = Executors.newFixedThreadPool(AlbumPhotoConstants.THREAD_POOL_SIZE);
 	}
 
 	@Test
@@ -54,7 +56,6 @@ class AlbumServiceImplTest {
 
 		CompletableFuture<List<Album>> future = albumService.fetchAlbumsAsync();
 
-		System.out.println("AAAAAAAAAAAA" + future.toString());
 		List<Album> albums = future.join(); // Esperar a que el CompletableFuture se complete
 
 		assert (albums.size() == 2);
