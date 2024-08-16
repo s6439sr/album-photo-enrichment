@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Album.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">album-photo-enrichment</a> &gt; <a href="index.source.html" class="el_package">com.example.albumphotoenrichment.model</a> &gt; <span class="el_source">Album.java</span></div><h1>Album.java</h1><pre class="source lang-java linenums">package com.example.albumphotoenrichment.model;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
+/**
+ * Modelo que representa un album.
+ */
+@Entity
+public class Album {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Long userId;
+	private String title;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = &quot;albumId&quot;)
+	private List&lt;Photo&gt; photos;
+
+	/**
+	 * Constructor por defecto
+	 */
+<span class="fc" id="L32">	public Album() {</span>
+<span class="fc" id="L33">	}</span>
+
+<span class="fc" id="L35">	public Album(Long id, Long userId, String title) {</span>
+<span class="fc" id="L36">		this.id = id;</span>
+<span class="fc" id="L37">		this.userId = userId;</span>
+<span class="fc" id="L38">		this.title = title;</span>
+<span class="fc" id="L39">	}</span>
+
+	public Long getId() {
+<span class="fc" id="L42">		return id;</span>
+	}
+
+	public void setId(Long id) {
+<span class="fc" id="L46">		this.id = id;</span>
+<span class="fc" id="L47">	}</span>
+
+	public Long getUserId() {
+<span class="fc" id="L50">		return userId;</span>
+	}
+
+	public void setUserId(Long userId) {
+<span class="fc" id="L54">		this.userId = userId;</span>
+<span class="fc" id="L55">	}</span>
+
+	public String getTitle() {
+<span class="fc" id="L58">		return title;</span>
+	}
+
+	public void setTitle(String title) {
+<span class="fc" id="L62">		this.title = title;</span>
+<span class="fc" id="L63">	}</span>
+
+	public List&lt;Photo&gt; getPhotos() {
+<span class="fc" id="L66">		return photos;</span>
+	}
+
+	public void setPhotos(List&lt;Photo&gt; photos) {
+<span class="fc" id="L70">		this.photos = photos;</span>
+<span class="fc" id="L71">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
